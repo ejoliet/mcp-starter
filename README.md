@@ -16,23 +16,48 @@ Use this as a learning template or starting point for building your own MCP serv
 
 Notes are persisted to `notes.json` alongside `server.py`.
 
-## Requirements
+## Install
 
-- Python 3.12+
-- [uv](https://docs.astral.sh/uv/) package manager
-- Claude Code (to register and use the server)
+### One-liner (bash)
 
-## Setup
+Requires [uv](https://docs.astral.sh/uv/) and [Claude Code](https://claude.ai/code).
 
 ```bash
-git clone <this-repo> ~/mcp-starter
-cd ~/mcp-starter
-uv sync                          # install dependencies
+curl -fsSL https://raw.githubusercontent.com/ejoliet/mcp-starter/main/install.sh | bash
 ```
 
-Register with Claude Code:
+This clones the repo to `~/mcp-starter`, installs dependencies, and registers the server with Claude Code automatically. Start a new Claude Code session and it's ready.
+
+To install to a custom path:
 
 ```bash
+MCP_STARTER_DIR=~/dev/mcp-starter curl -fsSL https://raw.githubusercontent.com/ejoliet/mcp-starter/main/install.sh | bash
+```
+
+### Docker
+
+Requires [Docker](https://docs.docker.com/get-docker/).
+
+```bash
+git clone https://github.com/ejoliet/mcp-starter.git
+cd mcp-starter
+docker compose up --build
+```
+
+Notes are persisted in a named Docker volume (`notes-data`). Register the containerized server with Claude Code:
+
+```bash
+claude mcp add mcp-starter -- docker compose -f ~/mcp-starter/docker-compose.yml run --rm mcp-starter
+```
+
+### Manual setup
+
+Requirements: Python 3.12+, [uv](https://docs.astral.sh/uv/), Claude Code.
+
+```bash
+git clone https://github.com/ejoliet/mcp-starter.git ~/mcp-starter
+cd ~/mcp-starter
+uv sync
 claude mcp add mcp-starter -- uv --directory ~/mcp-starter run server.py
 ```
 
@@ -64,7 +89,9 @@ uv run python test_resource.py
 mcp-starter/
 ├── server.py          # MCP server implementation
 ├── test_resource.py   # CLI test harness
-├── notes.json         # Runtime data (auto-created)
+├── install.sh         # Bash one-liner installer
+├── Dockerfile         # Container image
+├── docker-compose.yml # Compose config
 ├── pyproject.toml     # Dependencies
 └── DEV_GUIDE.md       # Developer iteration guide
 ```
