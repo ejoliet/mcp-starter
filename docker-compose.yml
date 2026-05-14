@@ -1,0 +1,11 @@
+services:
+  mcp-starter:
+    build: .
+    image: mcp-starter:latest
+    stdin_open: true
+    tty: false
+    volumes:
+      - notes-data:/app/notes
+
+volumes:
+  notes-data:

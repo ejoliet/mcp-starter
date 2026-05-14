@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# AgentOps session artifacts
+/.agents/
+
+# Claude Code / OMC local state
+/.claude/
+/.omc/
+
+# Runtime data (generated at run time)
+notes.json
+
+# Local scratch notes
+note.md
